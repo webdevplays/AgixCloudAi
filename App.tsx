@@ -4,7 +4,7 @@
 */
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion';
 import { 
   Menu, X, Rocket, Github, Twitter, Send, 
   Terminal, Code2, Cpu, Eye, Download, Sparkles, 
@@ -13,6 +13,74 @@ import {
 import FluidBackground from './components/FluidBackground';
 import GradientText from './components/GlitchText';
 import CustomCursor from './components/CustomCursor';
+
+// --- Typewriter Code Component ---
+const TypewriterCode: React.FC = () => {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
+  const [displayText, setDisplayText] = useState("");
+  const fullCode = `export const websiteBuilderPrompt = ai.definePrompt({
+  name: 'websiteBuilderPrompt',
+  prompt: \`You are an expert developer...
+
+**USER'S REQUEST:**
+"{{{prompt}}}"
+
+**CURRENT PROJECT FILES:**
+{{#each files}}
+  \`\`\`{{name}}
+  {{{content}}}
+  \`\`\`
+{{/each}}
+
+**OUTPUT INSTRUCTIONS:**
+JSON with "files" and "message".
+\`,
+});`;
+
+  useEffect(() => {
+    if (isInView) {
+      let currentIdx = 0;
+      const interval = setInterval(() => {
+        if (currentIdx <= fullCode.length) {
+          setDisplayText(fullCode.slice(0, currentIdx));
+          currentIdx++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 15);
+      return () => clearInterval(interval);
+    }
+  }, [isInView, fullCode]);
+
+  // Simple Regex-based Syntax Highlighting for the displayed text
+  const highlightCode = (code: string) => {
+    const parts = code.split(/(\bexport\b|\bconst\b|\bai\b|\bdefinePrompt\b|'.*?'|`[\s\S]*?`|\{|\}|\(|\)|:)/g);
+    
+    return parts.map((part, i) => {
+      if (part === 'export' || part === 'const') return <span key={i} style={{ color: '#c678dd' }}>{part}</span>;
+      if (part === 'ai' || part === 'definePrompt') return <span key={i} style={{ color: '#61afef' }}>{part}</span>;
+      if (part.startsWith("'") && part.endsWith("'")) return <span key={i} style={{ color: '#98c379' }}>{part}</span>;
+      if (part.startsWith("`")) return <span key={i} style={{ color: '#d19a66' }}>{part}</span>;
+      if (['{', '}', '(', ')'].includes(part)) return <span key={i} style={{ color: '#abb2bf' }}>{part}</span>;
+      if (part === ':') return <span key={i} style={{ color: '#abb2bf' }}>{part}</span>;
+      return part;
+    });
+  };
+
+  return (
+    <div ref={containerRef} className="p-4 sm:p-12 overflow-x-auto min-h-[300px]">
+      <pre className="font-mono text-[9px] sm:text-xs md:text-sm leading-relaxed whitespace-pre-wrap">
+        {highlightCode(displayText)}
+        <motion.span 
+          animate={{ opacity: [1, 0] }} 
+          transition={{ duration: 0.8, repeat: Infinity, ease: "steps(2)" }}
+          className="inline-block w-2 h-4 bg-[#a8fbd3] ml-1 align-middle"
+        />
+      </pre>
+    </div>
+  );
+};
 
 // --- 3D Tilt Component with Composite Layers ---
 const TiltImage: React.FC<{ 
@@ -453,28 +521,7 @@ const App: React.FC = () => {
                 <div className="w-2 h-2 rounded-full bg-green-500/50" />
                 <span className="ml-2 text-[8px] sm:text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]">websiteBuilderPrompt.ts</span>
               </div>
-              <div className="p-4 sm:p-12 overflow-x-auto">
-                <pre className="font-mono text-[9px] sm:text-xs md:text-sm leading-relaxed text-[#a8fbd3] whitespace-pre-wrap">
-{`export const websiteBuilderPrompt = ai.definePrompt({
-  name: 'websiteBuilderPrompt',
-  prompt: \`You are an expert developer...
-
-**USER'S REQUEST:**
-"{{{prompt}}}"
-
-**CURRENT PROJECT FILES:**
-{{#each files}}
-  \`\`\`{{name}}
-  {{{content}}}
-  \`\`\`
-{{/each}}
-
-**OUTPUT INSTRUCTIONS:**
-JSON with "files" and "message".
-\`,
-});`}
-                </pre>
-              </div>
+              <TypewriterCode />
             </div>
           </div>
         </div>
