@@ -13,7 +13,6 @@ import {
 import FluidBackground from './components/FluidBackground';
 import GradientText from './components/GlitchText';
 import CustomCursor from './components/CustomCursor';
-import AIChat from './components/AIChat';
 
 // --- 3D Tilt Component with Composite Layers ---
 const TiltImage: React.FC<{ 
@@ -188,7 +187,6 @@ const App: React.FC = () => {
     <div className="relative min-h-screen text-white selection:bg-[#4fb7b3] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
       <CustomCursor />
       <FluidBackground />
-      <AIChat />
       
       {/* Maintenance Pop-up */}
       <AnimatePresence>
@@ -369,7 +367,7 @@ const App: React.FC = () => {
             </div>
             
             <div className="order-1 md:order-2 flex justify-center items-center py-6 md:py-10">
-             
+              
             </div>
           </motion.div>
         </div>
