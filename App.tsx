@@ -354,8 +354,13 @@ const App: React.FC = () => {
       <section id="vision" className="relative z-10 py-16 md:py-48 px-6 md:px-16 bg-black overflow-hidden">
         <div ref={visionVantaRef} className="absolute inset-0 z-0 opacity-60 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} className="grid md:grid-cols-2 gap-10 md:gap-24 items-center">
-            <div className="order-2 md:order-1 text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true, margin: "-100px" }} 
+            className="grid md:grid-cols-2 gap-10 md:gap-24 items-center"
+          >
+            <div className="text-left">
               <HoverTitle className="text-2xl sm:text-4xl md:text-7xl mb-6 md:mb-10 leading-[1.1] tracking-tighter">
                 Our Vision: <br/> <span className="text-[#a8fbd3]">The Future</span> of Creation
               </HoverTitle>
@@ -365,10 +370,8 @@ const App: React.FC = () => {
                 <p>Our platform is more than just a tool; it's an AI that understands context, iterates on feedback, and handles the complexities of modern development, freeing you to focus on your vision.</p>
               </div>
             </div>
-            
-            <div className="order-1 md:order-2 flex justify-center items-center py-6 md:py-10">
-              
-            </div>
+            {/* Empty column to preserve text position */}
+            <div className="hidden md:block" />
           </motion.div>
         </div>
       </section>
