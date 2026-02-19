@@ -13,8 +13,12 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import FluidBackground from './components/FluidBackground';
+import ParticleBackground from './components/ParticleBackground';
 import GradientText from './components/GlitchText';
 import CustomCursor from './components/CustomCursor';
+import AIChat from './components/AIChat';
+import ArtistCard from './components/ArtistCard';
+import { Artist } from './types';
 
 // --- Glitch Animation Variants ---
 // Added Variants type to fix inferred string errors in transitions
@@ -323,7 +327,7 @@ const App: React.FC = () => {
     document.body.style.overflow = mobileMenuOpen || isBuilderOpen ? 'hidden' : 'auto';
   }, [mobileMenuOpen, isBuilderOpen]);
 
-  const navItems = ['Vision', 'Flow', 'Features', 'Chart', 'Code'];
+  const navItems = ['Vision', 'Flow', 'Tokenomics', 'Features', 'Chart', 'Code'];
 
   return (
     <div className="relative min-h-screen text-white selection:bg-[#4fb7b3] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
@@ -419,6 +423,7 @@ const App: React.FC = () => {
             {/* Hero */}
             <header className="relative h-[100svh] min-h-[600px] flex flex-col items-center justify-center overflow-hidden px-4 md:px-8">
               <HeroVanta />
+              <ParticleBackground />
               <div className="absolute inset-0 bg-black/20 z-[1] pointer-events-none" />
               <motion.div style={{ y, opacity }} className="z-10 text-center flex flex-col items-center w-full max-w-6xl pb-8 md:pb-20">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 md:gap-6 text-[10px] md:text-base font-mono text-[#a8fbd3] tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 bg-black/40 px-5 py-2.5 rounded-full backdrop-blur-md border border-white/10 shadow-2xl">
@@ -525,6 +530,69 @@ const App: React.FC = () => {
               </div>
             </section>
 
+            {/* Tokenomics Section */}
+            <section id="tokenomics" className="relative z-10 py-16 md:py-48 px-6 md:px-16 bg-black overflow-hidden border-y border-white/5">
+              <div className="max-w-7xl mx-auto relative z-10">
+                <div className="text-center mb-12 md:mb-32">
+                  <HoverTitle className="text-3xl sm:text-6xl md:text-9xl mb-4 tracking-tighter">TOKENOMICS</HoverTitle>
+                  <p className="text-[#a8fbd3] font-mono uppercase tracking-[0.2em] md:tracking-[0.4em] text-[9px] sm:text-xs">Economy of the Future</p>
+                </div>
+                
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+                  {[
+                    { label: 'NAME', value: 'Agix Cloud Ai' },
+                    { label: 'TICKER', value: '$AGIXAI' },
+                    { label: 'CONTRACT', value: 'REVOKED' },
+                    { label: 'SUPPLY', value: '1,000,000,000' }
+                  ].map((item, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      className="p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl group hover:border-[#a8fbd3]/50 transition-all duration-500"
+                    >
+                      <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-2">{item.label}</p>
+                      <p className="text-xl md:text-2xl font-heading font-bold text-white group-hover:text-[#a8fbd3] transition-colors">{item.value}</p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  className="mt-12 md:mt-20 p-8 md:p-12 bg-gradient-to-br from-white/10 to-transparent border border-white/10 rounded-3xl backdrop-blur-2xl relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
+                    <Zap className="w-32 h-32 text-[#a8fbd3]" />
+                  </div>
+                  <div className="relative z-10">
+                    <p className="text-[10px] font-mono text-[#a8fbd3] uppercase tracking-[0.3em] mb-4">Official Contract Address</p>
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                      <code className="text-xs sm:text-sm md:text-2xl font-mono text-white break-all bg-black/40 p-4 md:p-6 rounded-xl border border-white/5 w-full">
+                        ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump
+                      </code>
+                      <button 
+                        onClick={() => {
+                          navigator.clipboard.writeText('ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump');
+                          alert('Contract address copied to clipboard!');
+                        }}
+                        className="whitespace-nowrap px-8 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest text-xs hover:bg-[#a8fbd3] transition-colors rounded-xl"
+                      >
+                        Copy Address
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none -z-10">
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#4fb7b3]/10 rounded-full blur-[120px]" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#a8fbd3]/10 rounded-full blur-[120px]" />
+              </div>
+            </section>
+
             {/* Features Section */}
             <section id="features" className="relative z-10 py-16 md:py-48 px-6 md:px-16 bg-white text-black">
               <div className="max-w-7xl mx-auto">
@@ -608,6 +676,7 @@ const App: React.FC = () => {
                 </div>
               </div>
             </footer>
+            <AIChat />
           </motion.div>
         ) : (
           <motion.div
