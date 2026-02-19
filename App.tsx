@@ -16,9 +16,6 @@ import FluidBackground from './components/FluidBackground';
 import ParticleBackground from './components/ParticleBackground';
 import GradientText from './components/GlitchText';
 import CustomCursor from './components/CustomCursor';
-import AIChat from './components/AIChat';
-import ArtistCard from './components/ArtistCard';
-import { Artist } from './types';
 
 // --- Glitch Animation Variants ---
 // Added Variants type to fix inferred string errors in transitions
@@ -687,7 +684,6 @@ const App: React.FC = () => {
                 </div>
               </div>
             </footer>
-            <AIChat />
           </motion.div>
         ) : (
           <motion.div
