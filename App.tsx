@@ -323,7 +323,7 @@ const App: React.FC = () => {
     document.body.style.overflow = mobileMenuOpen || isBuilderOpen ? 'hidden' : 'auto';
   }, [mobileMenuOpen, isBuilderOpen]);
 
-  const navItems = ['Vision', 'Flow', 'Features', 'Code'];
+  const navItems = ['Vision', 'Flow', 'Features', 'Chart', 'Code'];
 
   return (
     <div className="relative min-h-screen text-white selection:bg-[#4fb7b3] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
@@ -545,6 +545,28 @@ const App: React.FC = () => {
                       <p className="text-xs md:text-base opacity-70 leading-relaxed flex-1">{feat.desc}</p>
                     </motion.div>
                   ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Live Chart Section */}
+            <section id="chart" className="relative z-10 py-16 md:py-24 px-6 md:px-16 bg-black">
+              <div className="max-w-7xl mx-auto">
+                <div className="mb-12 md:mb-20">
+                  <HoverTitle className="text-3xl sm:text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter">Live <br/>Market</HoverTitle>
+                </div>
+                <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                  <style dangerouslySetInnerHTML={{ __html: `
+                    #dexscreener-embed{position:relative;width:100%;padding-bottom:125%;}
+                    @media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}
+                    #dexscreener-embed iframe{position:absolute;width:100%;height:100%;top:0;left:0;border:0;}
+                  ` }} />
+                  <div id="dexscreener-embed">
+                    <iframe 
+                      src="https://dexscreener.com/solana/67oLWhUAGxVm9GUDnjiTCTbdZPqFFB4oMBs4QNBn4fHS?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"
+                      title="DexScreener Live Chart"
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </section>
