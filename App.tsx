@@ -302,6 +302,7 @@ const App: React.FC = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -572,15 +573,25 @@ const App: React.FC = () => {
                       <code className="text-xs sm:text-sm md:text-2xl font-mono text-white break-all bg-black/40 p-4 md:p-6 rounded-xl border border-white/5 w-full">
                         ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump
                       </code>
-                      <button 
+                      <motion.button 
+                        whileHover={{ scale: 1.05, backgroundColor: "#a8fbd3" }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => {
                           navigator.clipboard.writeText('ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump');
-                          alert('Contract address copied to clipboard!');
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2000);
                         }}
-                        className="whitespace-nowrap px-8 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest text-xs hover:bg-[#a8fbd3] transition-colors rounded-xl"
+                        className="whitespace-nowrap px-8 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest text-xs transition-colors rounded-xl flex items-center gap-2"
                       >
-                        Copy Address
-                      </button>
+                        {copied ? (
+                          <>
+                            <Sparkles className="w-4 h-4" />
+                            COPIED!
+                          </>
+                        ) : (
+                          'Copy Address'
+                        )}
+                      </motion.button>
                     </div>
                   </div>
                 </motion.div>
