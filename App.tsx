@@ -10,7 +10,7 @@ import {
   Menu, X, Rocket, Github, Twitter, Send, 
   Terminal, Code2, Cpu, Eye, Download, Sparkles, 
   Layers, MessageSquare, Zap, RefreshCcw, AlertTriangle,
-  ArrowLeft
+  ArrowLeft, Tag, Activity, ShieldCheck, Coins
 } from 'lucide-react';
 import FluidBackground from './components/FluidBackground';
 import ParticleBackground from './components/ParticleBackground';
@@ -538,10 +538,10 @@ const App: React.FC = () => {
                 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
                   {[
-                    { label: 'NAME', value: 'Agix Cloud Ai' },
-                    { label: 'TICKER', value: '$AGIXAI' },
-                    { label: 'CONTRACT', value: 'REVOKED' },
-                    { label: 'SUPPLY', value: '1,000,000,000' }
+                    { label: 'NAME', value: 'Agix Cloud Ai', icon: Tag },
+                    { label: 'TICKER', value: '$AGIXAI', icon: Activity },
+                    { label: 'CONTRACT', value: 'REVOKED', icon: ShieldCheck },
+                    { label: 'SUPPLY', value: '1,000,000,000', icon: Coins }
                   ].map((item, i) => (
                     <motion.div 
                       key={i}
@@ -550,7 +550,10 @@ const App: React.FC = () => {
                       transition={{ delay: i * 0.1 }}
                       className="p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-xl group hover:border-[#a8fbd3]/50 transition-all duration-500"
                     >
-                      <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest mb-2">{item.label}</p>
+                      <div className="flex items-center gap-2 mb-2">
+                        <item.icon className="w-3 h-3 text-[#a8fbd3] opacity-50 group-hover:opacity-100 transition-opacity" />
+                        <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest">{item.label}</p>
+                      </div>
                       <p className="text-xl md:text-2xl font-heading font-bold text-white group-hover:text-[#a8fbd3] transition-colors">{item.value}</p>
                     </motion.div>
                   ))}
@@ -567,9 +570,17 @@ const App: React.FC = () => {
                   <div className="relative z-10">
                     <p className="text-[10px] font-mono text-[#a8fbd3] uppercase tracking-[0.3em] mb-4">Official Contract Address</p>
                     <div className="flex flex-col md:flex-row items-center gap-6">
-                      <code className="text-xs sm:text-sm md:text-2xl font-mono text-white break-all bg-black/40 p-4 md:p-6 rounded-xl border border-white/5 w-full">
-                        ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump
-                      </code>
+                      <div className="relative w-full group/tooltip">
+                        <code className="text-xs sm:text-sm md:text-2xl font-mono text-white break-all bg-black/40 p-4 md:p-6 rounded-xl border border-white/5 w-full block cursor-help">
+                          ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump
+                        </code>
+                        
+                        {/* Tooltip */}
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 px-4 py-2 bg-white text-black text-[10px] font-mono rounded-lg opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-2xl z-50">
+                          FULL ADDRESS: ESDZu5jUmh1MaH7kq4PX4joVPmf61qNy3LstUXoNpump
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-white" />
+                        </div>
+                      </div>
                       <motion.button 
                         whileHover={{ scale: 1.05, backgroundColor: "#a8fbd3" }}
                         whileTap={{ scale: 0.95 }}
