@@ -639,10 +639,20 @@ const App: React.FC = () => {
             {/* Live Chart Section */}
             <section id="chart" className="relative z-10 py-16 md:py-24 px-6 md:px-16 bg-black">
               <div className="max-w-7xl mx-auto">
-                <div className="mb-12 md:mb-20">
-                  <HoverTitle className="text-3xl sm:text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter">Live <br/>Market</HoverTitle>
+                <div className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                  <div>
+                    <HoverTitle className="text-3xl sm:text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter">Live <br/>Market</HoverTitle>
+                  </div>
+                  <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-6 py-3 rounded-full backdrop-blur-md">
+                    <div className="relative flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </div>
+                    <span className="text-xs font-mono font-bold tracking-[0.2em] text-white/80 uppercase">Real-time Feed Active</span>
+                  </div>
                 </div>
-                <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none z-10" />
                   <style dangerouslySetInnerHTML={{ __html: `
                     #dexscreener-embed{position:relative;width:100%;padding-bottom:125%;}
                     @media(min-width:1400px){#dexscreener-embed{padding-bottom:65%;}}
@@ -650,7 +660,7 @@ const App: React.FC = () => {
                   ` }} />
                   <div id="dexscreener-embed">
                     <iframe 
-                      src="https://dexscreener.com/solana/67oLWhUAGxVm9GUDnjiTCTbdZPqFFB4oMBs4QNBn4fHS?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"
+                      src="https://dexscreener.com/solana/2sN5M18oXLe2vuvHHjTK5tM98f5dK21xrDKuE7fKkpNZ?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"
                       title="DexScreener Live Chart"
                     ></iframe>
                   </div>
