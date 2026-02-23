@@ -730,7 +730,7 @@ const App: React.FC = () => {
 
             {/* Studio Iframe */}
             <iframe 
-              src="https://ai-website-builder-184681924464.us-west1.run.app/"
+              src="https://ai-website-builder-730614349814.us-west1.run.app"
               className="w-full h-full border-none shadow-2xl"
               title="AGIXCLOUD Studio"
               allow="camera; microphone; geolocation"
