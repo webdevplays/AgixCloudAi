@@ -10,7 +10,7 @@ import {
   Menu, X, Rocket, Github, Twitter, Send, 
   Terminal, Code2, Cpu, Eye, Download, Sparkles, 
   Layers, MessageSquare, Zap, RefreshCcw, AlertTriangle,
-  ArrowLeft, Tag, Activity, ShieldCheck, Coins
+  Tag, Activity, ShieldCheck, Coins
 } from 'lucide-react';
 import FluidBackground from './components/FluidBackground';
 import ParticleBackground from './components/ParticleBackground';
@@ -298,7 +298,6 @@ const App: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isBuilderOpen, setIsBuilderOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -313,17 +312,13 @@ const App: React.FC = () => {
   };
 
   const handleLaunchBuilder = () => {
-    setIsBuilderOpen(true);
+    window.open('http://agixcloud-builder.com/', '_blank');
     setMobileMenuOpen(false);
   };
 
-  const handleBackToWebsite = () => {
-    setIsBuilderOpen(false);
-  };
-
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen || isBuilderOpen ? 'hidden' : 'auto';
-  }, [mobileMenuOpen, isBuilderOpen]);
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : 'auto';
+  }, [mobileMenuOpen]);
 
   const navItems = ['Vision', 'Flow', 'Tokenomics', 'Features', 'Chart', 'Code'];
 
@@ -331,17 +326,15 @@ const App: React.FC = () => {
     <div className="relative min-h-screen text-white selection:bg-[#4fb7b3] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
       <CustomCursor />
       
-      <AnimatePresence mode="wait">
-        {!isBuilderOpen ? (
-          <motion.div
-            key="website"
-            variants={glitchTransition}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="relative"
-          >
-            <FluidBackground />
+      <motion.div
+        key="website"
+        variants={glitchTransition}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        className="relative"
+      >
+        <FluidBackground />
             
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-[70] flex items-center justify-between px-6 md:px-12 py-4 md:py-6 mix-blend-difference">
@@ -705,39 +698,7 @@ const App: React.FC = () => {
                 </div>
               </div>
             </footer>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="builder"
-            variants={glitchTransition}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="fixed inset-0 z-[9999] bg-black overflow-hidden flex flex-col"
-          >
-            {/* Floating Back Button */}
-            <motion.button
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleBackToWebsite}
-              className="fixed top-6 left-6 z-[10000] flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 px-4 py-2 rounded-full hover:bg-white/20 transition-all group"
-            >
-              <ArrowLeft className="w-5 h-5 text-[#a8fbd3] group-hover:-translate-x-1 transition-transform" />
-              <span className="font-heading font-bold text-[10px] tracking-widest uppercase text-white">Back to Website</span>
-            </motion.button>
-
-            {/* Studio Iframe */}
-            <iframe 
-              src="https://ai-website-builder-730614349814.us-west1.run.app"
-              className="w-full h-full border-none shadow-2xl"
-              title="AGIXCLOUD Studio"
-              allow="camera; microphone; geolocation"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </motion.div>
     </div>
   );
 };
